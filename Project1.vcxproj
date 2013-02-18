@@ -15,6 +15,10 @@
     <ClInclude Include="Record.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="unittest1.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{214670D3-B645-4283-B48E-C87B8DAF7D96}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -25,12 +29,14 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
