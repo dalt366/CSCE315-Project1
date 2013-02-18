@@ -15,12 +15,7 @@ public:
       Creates a record with an arbitrary number of entries
     */
 	Record();
-<<<<<<< .mine
-=======
-	Record(vector<string>);											//Takes a vector of strings and stores them in Entries
->>>>>>> .r10
 
-<<<<<<< .mine
 	/*!
       Creates a record using the specified entries
 	  \param entries the entries to populate the record with
@@ -41,12 +36,6 @@ public:
     */
 	string getEntry(int columnNumber);
 
-=======
-	void modifyEntry(int rowNumber);								//Modifies an entry in a specified row and column
-
-	string getEntryRow(int rowNumber);								//Gets the entry at the specified row and column;
-
->>>>>>> .r10
 private:
 
 	vector<string> entries;
