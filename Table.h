@@ -1,41 +1,106 @@
-#include <list>
-#include <stdlib.h>
+#pragma once
+
+#ifndef TABLE_H
+#define TABLE_H
+
 #include <map>
-#include <iterator>
-#include <string>
 #include "Record.h"
 
 using namespace std;
-enum {INT, FLOAT, STRING, DATE};
+
+
 
 class Table {
 public:
-	Table(map<string,string>); 
-	void add(string attribute, string type);
-	void deleteFunction(string name);
+	//! An enum representing attribute types
+	enum TYPE {INT, FLOAT, STRING, DATE};
+
+    /*!
+      Creates an empty table with no rows or columns
+    */
+	Table();
+
+    /*!
+      Creates a table from specified columns
+	  \param columns A map of attribute name and types
+    */
+	Table(map<string,TYPE> columns);
+
+    /*!
+	  Takes in a single attribute name and type, and adds a column to the end of the table with that new attribute.  Any entries currently in the table should get NULL for that entry.
+      \param attributeName the name of the new attribute
+      \param type the type of the attribute
+    */
+	void add(string attributeName, TYPE type);
+
+    /*!
+	  Takes an attribute name and deletes it from the table.
+      \param attributeName the name of the attribute to delete
+    */
+	void deleteFunction(string attributeName);
+
+	/*!
+	  Takes a record and adds it to the table
+      \param record the record to add
+    */
 	void insert(Record record);
-	map<string,string> getAttributes();
-	int getSize(Table table);
-	iterator<Record> begin();
-	iterator<Record> end();
-	void rename(string name1, string name2);
-	Table cross_join(Table table1, Table table2);
+
+	/*!
+      \return a map of the attributes and types for that table
+    */
+	map<string,TYPE> getAttributes();
+
+	/*!
+      \return the number of records in the table
+    */
+	int getSize();
+
+	/*!
+	  \param rowNumber the row number to retrieve from the table
+      \return the requested record from the table
+    */
+	Record getRecord(int rowNumber);
+
+	/*!
+	  Takes two names, and replaces the name for the attribute given by the first name with the second name
+	  \param oldName the name to be replaced
+	  \param newName the name to change it to
+    */
+	void renameAttribute(string oldName, string newName);
+
+	/*!
+	  Takes two tables as input and produces one table as output.
+	  \param table1 the first table
+	  \param table2 the second table
+    */
+	Table crossJoin(Table table1, Table table2);
+
+	/*!
+	  Take a single attribute name as input, and computes the sum of all records
+	  \param attributeName the name of the column (attribute) to use
+    */
+	float getSum(string attributeName);
+
+	/*!
+	  Take a single attribute name as input, and counts non-null entries
+	  \param attributeName the name of the column (attribute) to use
+    */
+	int getCount(string attributeName);
+
+	/*!
+	  Take a single attribute name as input, and finds the minimum of all records
+	  \param attributeName the name of the column (attribute) to use
+    */
+	float getMin(string attributeName);
+
+	/*!
+	  Take a single attribute name as input, and finds the maximum of all records
+	  \param attributeName the name of the column (attribute) to use
+    */
+	float getMax(string attributeName);
+
+private:
+	vector<Record> records;
 };
 
-/*
-  Constructor of a table.  An empty constructor should be allowed, to create a table with no rows or columns.
-·         A constructor should also be supported that takes a list of attribute names and types (this can be done in multiple ways – you could have two lists (one with names, one with types), or use a new structure with a name/type, pass in as arrays, or as some other container, etc.
-·         An add function that takes in a single attribute name and type, and adds a column to the end of the table with that new attribute.  Any entries currently in the table should get NULL for that entry.
-·         A delete function that takes an attribute name and deletes it from the table.
-·         An insert command that takes a record and adds it to the table.
-·         A get attributes command that returns a list of the attributes and types for that table
-·         A get size command that returns the number of records in the table
-·         An iterator of some sort that can be used to return individual records from the table.  There are many ways this can be done.
-·         A rename attribute command that takes two names, and replaces the name for the attribute given by the first name with the second name.
-·         A cross join command that takes two tables as input and produces one table as output.
-   Routines that take a single attribute name as input, and compute the following:
-o   Sum
-o   Count (counts non-null entries only)
-o   Min
-o   Max
-*/
+#endif
