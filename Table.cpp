@@ -23,7 +23,7 @@ int Table::getSize(){
 }
 
 Record Table::getRecord(int rowNumber){
-
+	return records[rowNumber];
 }
 
 void Table::renameAttribute(string oldName, string newName){
@@ -31,7 +31,7 @@ void Table::renameAttribute(string oldName, string newName){
 }
 
 Table Table::crossJoin(Table table1, Table table2){
-
+	return table1;
 }
 
 float Table::getSum(string attributeName){

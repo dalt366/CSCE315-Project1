@@ -1,5 +1,3 @@
-#include "stdafx.h"
-#include "CppUnitTest.h"
 #include "Database.h"
 #include <vector>
 #include <string>

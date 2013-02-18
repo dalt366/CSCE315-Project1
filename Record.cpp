@@ -1,26 +1,20 @@
 #include "Record.h"
 #include <iostream>
 
-Record::Record(vector<string> records){
+Record::Record(vector<string> entries){
 
-	entries = records;
-
-}
-
-void Record::modifyEntry(int rowNumber){
-
-	string newRecords;
-
-	cout << "Enter new records" << endl;
-
-	cin >> newRecords; 
-
-	entries[rowNumber] = newRecords;
+	this->entries = entries;
 
 }
 
-string Record::getEntryRow(int rowNumber){
+void Record::modifyEntry(int columnNumber, string newEntry) {
 
-	return entries[rowNumber];
+	entries[columnNumber] = newEntry;
+
+}
+
+string Record::getEntry(int columnNumber){
+
+	return entries[columnNumber];
 
 }

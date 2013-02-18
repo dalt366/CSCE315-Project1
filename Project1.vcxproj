@@ -16,6 +16,7 @@
     <ClInclude Include="Table.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Record.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="unittest1.cpp" />
   </ItemGroup>

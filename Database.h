@@ -60,6 +60,6 @@ public:
 
 private:
 	vector<Table> tables;
-}
+};
 
 #endif
