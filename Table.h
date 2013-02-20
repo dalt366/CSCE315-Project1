@@ -101,6 +101,7 @@ public:
 
 private:
 	vector<Record> records;
+	map<string,TYPE> columns;
 };
 
 #endif
