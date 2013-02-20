@@ -1,6 +1,7 @@
 #include "Database.h"
 #include <vector>
 #include <string>
+#include "CppUnitTest.h"
 
 using namespace std;
 

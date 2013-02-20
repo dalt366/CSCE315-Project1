@@ -38,17 +38,17 @@ Table Table::crossJoin(Table table1, Table table2){
 }
 
 float Table::getSum(string attributeName){
-	return 2;
+	return 0;
 }
 
 int Table::getCount(string attributeName){
-	return 2;
+	return 0;
 }
 
 float Table::getMin(string attributeName){
-	return 2;
+	return 0;
 }
 
 float Table::getMax(string attributeName){
-	return 2;
+	return 0;
 }

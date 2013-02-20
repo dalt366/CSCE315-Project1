@@ -1,12 +1,15 @@
+#ifdef DBDLL_EXPORTS
+#define DBDLL_API __declspec(dllexport) 
+#else
+#define DBDLL_API __declspec(dllimport) 
+#endif
+
 #pragma once
 
-#ifndef DATABASE_H
-#define DATABASE_H
-
-/* First revision of Database.h
+/* Database.h
  * 
  * Author: Brent Walther
- * Last Revised: Feb 05, 2013 12:01PM
+ * Last Revised: Feb 20, 2013 2:30PM
  */
 
 #include <vector>
@@ -14,13 +17,13 @@
 
 using namespace std;
 
-class Database {
+class DBDLL_API Database {
 public:
 
 	/*!
       Creates an empty database.
     */
-	Database() { };
+	Database();
 
 	/*!
       Takes a single table and a name, and adds that table to the database
@@ -61,5 +64,3 @@ public:
 private:
 	vector<Table> tables;
 };
-
-#endif

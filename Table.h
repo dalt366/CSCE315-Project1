@@ -1,16 +1,17 @@
-#pragma once
+#ifdef DBDLL_EXPORTS
+#define DBDLL_API __declspec(dllexport) 
+#else
+#define DBDLL_API __declspec(dllimport) 
+#endif
 
-#ifndef TABLE_H
-#define TABLE_H
+#pragma once
 
 #include <map>
 #include "Record.h"
 
 using namespace std;
 
-
-
-class Table {
+class DBDLL_API Table {
 public:
 	//! An enum representing attribute types
 	enum TYPE {INT, FLOAT, STRING, DATE};
@@ -103,5 +104,3 @@ private:
 	vector<Record> records;
 	map<string,TYPE> columns;
 };
-
-#endif

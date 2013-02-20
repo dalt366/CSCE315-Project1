@@ -1,14 +1,17 @@
-#pragma once
+#ifdef DBDLL_EXPORTS
+#define DBDLL_API __declspec(dllexport) 
+#else
+#define DBDLL_API __declspec(dllimport) 
+#endif
 
-#ifndef RECORD_H
-#define RECORD_H
+#pragma once
 
 #include <vector>
 #include <string>
 
 using namespace std;
 
-class Record{
+class DBDLL_API Record{
 public:
 
 	/*!
@@ -41,5 +44,3 @@ private:
 	vector<string> entries;
 
 };
-
-#endif
