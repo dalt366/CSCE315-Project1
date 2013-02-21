@@ -42,5 +42,5 @@ public:
 private:
 
 	vector<string> entries;
-
+	bool isValidColNum(int columnNumber);
 };

@@ -58,7 +58,7 @@ public:
 
 	/*!
 	  \param rowNumber the row number to retrieve from the table
-      \return the requested record from the table
+      \return the requested record from the table, or an empty record if the record isn't found
     */
 	Record getRecord(int rowNumber);
 
@@ -103,4 +103,7 @@ public:
 private:
 	vector<Record> records;
 	map<string,TYPE> columns;
+
+	bool isValidRecordNumber(int recordNumber);
+	int indexOfAttribute(string attributeName);
 };

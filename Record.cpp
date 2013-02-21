@@ -2,19 +2,24 @@
 #include <iostream>
 
 Record::Record(vector<string> entries){
-
 	this->entries = entries;
-
 }
 
 void Record::modifyEntry(int columnNumber, string newEntry) {
-
-	entries[columnNumber] = newEntry;
-
+	if(isValidColNum(columnNumber)) {
+		entries[columnNumber] = newEntry;
+	}
 }
 
 string Record::getEntry(int columnNumber){
+	if(isValidColNum(columnNumber)) {
+		return entries[columnNumber];
+	}
+	else {
+		return "";
+	}
+}
 
-	return entries[columnNumber];
-
+bool Record::isValidColNum(int columnNumber) {
+	return columnNumber >= 0 && columnNumber < entries.size();
 }
