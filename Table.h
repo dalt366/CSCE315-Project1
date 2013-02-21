@@ -23,9 +23,10 @@ public:
 
     /*!
       Creates a table from specified columns
-	  \param columns A map of attribute name and types
+	  \param columnNames A vector of the column names
+	  \param columnTypes A vector of the respective types
     */
-	Table(map<string,TYPE> columns);
+	Table(vector<string> columnNames, vector<Table::TYPE> columnTypes);
 
     /*!
 	  Takes in a single attribute name and type, and adds a column to the end of the table with that new attribute.  Any entries currently in the table should get NULL for that entry.
@@ -47,9 +48,9 @@ public:
 	void insert(Record record);
 
 	/*!
-      \return a map of the attributes and types for that table
+      \return A vector of the attribute names in table order
     */
-	map<string,TYPE> getAttributes();
+	vector<string> getAttributeNames();
 
 	/*!
       \return the number of records in the table
@@ -102,7 +103,8 @@ public:
 
 private:
 	vector<Record> records;
-	map<string,TYPE> columns;
+	vector<string> columnNames;
+	vector<Table::TYPE> columnTypes;
 
 	bool isValidRecordNumber(int recordNumber);
 	int indexOfAttribute(string attributeName);

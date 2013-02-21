@@ -1,11 +1,13 @@
 #include "Table.h"
 
-Table::Table(map<string,TYPE> columns) {
-	this->columns = columns;
+Table::Table(vector<string> columnNames, vector<Table::TYPE> columnTypes) {
+	this->columnNames = columnNames;
+	this->columnTypes = columnTypes;
 }
 
 void Table::add(string attributeName, TYPE type){
-	columns.insert(std::pair<string,TYPE>(attributeName, type));
+	columnNames.push_back(attributeName);
+	columnTypes.push_back(type);
 }
 
 void Table::deleteFunction(string attributeName){
@@ -16,8 +18,8 @@ void Table::insert(Record record){
 	records.push_back(record);
 }
 
-map<string,Table::TYPE> Table::getAttributes() {    
-    return columns;
+vector<string> Table::getAttributeNames() {    
+    return columnNames;
 }
 
 int Table::getSize(){
@@ -96,12 +98,13 @@ bool Table::isValidRecordNumber(int recordNumber) {
 }
 
 int Table::indexOfAttribute(string attributeName) {
-	map<string,Table::TYPE>::iterator columnIter = columns.begin();
+	vector<string>::iterator columnIter = columnNames.begin();
 	int index = 0;
-	while(columnIter->first != attributeName) {
-		it++;
+	while(columnIter->data != attributeName) {
+		columnIter++;
 		index++;
-		if(it == columns.end()) {
+		if(columnIter == columnNames.end()) {
+			index = 0;
 			break;
 		}
 	}
