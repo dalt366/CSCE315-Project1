@@ -63,4 +63,5 @@ public:
 
 private:
 	vector<Table> tables;
+	vector<string> tableNames;
 };
