@@ -64,4 +64,18 @@ public:
 private:
 	vector<Table> tables;
 	vector<string> tableNames;
+
+	/*
+		This function will split the query into a vector containing three things:
+		[0] = args from SELECT (attribute names)
+		[1] = arg from FROM (table name)
+		[2] = args from WHERE (have to parse this further)
+	*/
+	vector<string> splitQueryArguments(string query);
+
+	// Strips the records from the table that don't match "args" and then returns it back
+	Table stripRecords(Table table, string args);
+
+	 // Return the table of the given name
+	Table getTableByName(string tableName);
 };

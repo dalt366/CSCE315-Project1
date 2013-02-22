@@ -11,15 +11,29 @@ void Table::add(string attributeName, TYPE type){
 }
 
 void Table::deleteFunction(string attributeName){
-	columns.erase(attributeName);
+	vector<string>::iterator nameIter = columnNames.begin();
+	vector<Table::TYPE>::iterator tableIter = columnTypes.begin();
+	while(nameIter != columnNames.end()) {
+		if(nameIter->data == attributeName) {
+			// Found the table. Erase it and return true
+			columnNames.erase(nameIter);
+			columnTypes.erase(tableIter);
+		}
+		nameIter++;
+		tableIter++;
+	}
 }
 
 void Table::insert(Record record){
 	records.push_back(record);
 }
 
-vector<string> Table::getAttributeNames() {    
+vector<string> Table::getAttributes() {    
     return columnNames;
+}
+
+vector<Table::TYPE> Table::getAttributeTypes() {    
+    return columnTypes;
 }
 
 int Table::getSize(){
@@ -37,14 +51,16 @@ Record Table::getRecord(int rowNumber){
 }
 
 void Table::renameAttribute(string oldName, string newName){
-	std::map<string,TYPE>::iterator position = columns.find("oldName");
-	if(position != columns.end()) {
-		TYPE type = position->second;
-		columns.erase(position);
-		add(newName, type);
+	vector<string>::iterator position = columnNames.begin();
+	while(position != columnNames.end()) {
+		if(position->data == oldName) {
+			*position = newName;
+		}
 	}
 }
 
+
+ // TO DO -----------------------------------------------------------
 Table Table::crossJoin(Table table1, Table table2){
 	return table1;
 }

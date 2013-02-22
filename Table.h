@@ -50,7 +50,12 @@ public:
 	/*!
       \return A vector of the attribute names in table order
     */
-	vector<string> getAttributeNames();
+	vector<string> getAttributes();
+
+	/*!
+      \return A vector of the attribute types in table order. This order will match the return order of getAttributes()
+    */
+	vector<Table::TYPE> getAttributeTypes();
 
 	/*!
       \return the number of records in the table
