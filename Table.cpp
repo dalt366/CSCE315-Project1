@@ -64,11 +64,29 @@ void Table::renameAttribute(string oldName, string newName){
 
 Table Table::crossJoin(Table table1, Table table2){
 	Table table3;
-	vector<string> names;
-	names = getAttributes();
-	vector<Table::TYPE> types;
-	types = getAttributeTypes();
-	table3 = Table(names, types);
+	vector<string> names1, names2;
+	names1 = table1.getAttributes();
+	names2 = table2.getAttributes();
+	for(int i = 0; i < names2.size(); i++) {
+		names1.push_back(names2[i]);
+	}
+	vector<Table::TYPE> types1, types2;
+	types1 = table1.getAttributeTypes();
+	types2 = table2.getAttributeTypes();
+	for(int i = 0; i < types2.size(); i++) {
+		types1.push_back(types2[i]);
+	}
+	table3 = Table(names1, types1);
+	for(int i = 0; i < table1.getSize(); i++) {
+		int len = table1.getAttributes().size();
+		for(int j = 0; j < table2.getSize(); j++) {
+			Record record = table1.getRecord(i);
+			for(int k = 0; k < table2.getAttributes().size(); k++) {
+				record.modifyEntry(len+k, table2.getRecord(j).getEntry(k));
+			}
+			table3.insert(record);
+		}
+	}
 	return table3;
 }
 

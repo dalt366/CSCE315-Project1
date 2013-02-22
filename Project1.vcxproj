@@ -19,7 +19,6 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="Record.cpp" />
     <ClCompile Include="Table.cpp" />
-    <ClCompile Include="unittest1.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{214670D3-B645-4283-B48E-C87B8DAF7D96}</ProjectGuid>
