@@ -1,6 +1,8 @@
 #include "Record.h"
 #include <iostream>
 
+Record::Record() { }
+
 Record::Record(vector<string> entries){
 	this->entries = entries;
 }

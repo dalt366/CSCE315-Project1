@@ -60,17 +60,21 @@ namespace Team8TestCode
 
 		// Tests that the constructor correctly sets the size
 		TEST_METHOD(TableSizeTest2){ //constructor test?
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			Assert::AreEqual(t.getSize(), 0);
 		}
 
 		// Test attributes size
 		TEST_METHOD(TableAttributeSizeTest2){ //constructor test?
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 1);
 		}
 
@@ -83,9 +87,11 @@ namespace Team8TestCode
 
 		// Test attribute size with add function, on table created with map constructor
 		TEST_METHOD(TableAddAttributeTest2){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			t.add("Number", Table::INT);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 2);
 		}
@@ -95,7 +101,7 @@ namespace Team8TestCode
 			Table t;
 			t.add("String", Table::TYPE::STRING);
 			string s = "false";
-			if(t.getAttributes()["String"] == Table::TYPE::STRING) s = "true";
+			if(t.getAttributeTypes().front() == Table::TYPE::STRING) s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -104,7 +110,7 @@ namespace Team8TestCode
 			Table t;
 			t.add("Int", Table::TYPE::INT);
 			string s = "false";
-			if(t.getAttributes()["Int"] == Table::TYPE::INT) s = "true";
+			if(t.getAttributeTypes().front() == Table::TYPE::INT) s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -113,7 +119,7 @@ namespace Team8TestCode
 			Table t;
 			t.add("Float", Table::TYPE::FLOAT);
 			string s = "false";
-			if(t.getAttributes()["Float"] == Table::TYPE::FLOAT) s = "true";
+			if(t.getAttributeTypes().front() == Table::TYPE::FLOAT) s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -122,7 +128,7 @@ namespace Team8TestCode
 			Table t;
 			t.add("Date", Table::TYPE::DATE);
 			string s = "false";
-			if(t.getAttributes()["Date"] == Table::TYPE::DATE) s = "true";
+			if(t.getAttributeTypes().front() == Table::TYPE::DATE) s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -145,40 +151,35 @@ namespace Team8TestCode
 
 		// Test delete on table with one attribute, (map constructor)
 		TEST_METHOD(TableDeleteTest3){ //same as above
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			t.deleteFunction("Number");
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 0);
 		}
 
 		// Test delete on table with two attributes, (map constructor)
 		TEST_METHOD(TableDeleteTest4){ //same as above
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			m[1] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			s[1] = Table::TYPE::INT;
+			Table t(m,s);
 			t.deleteFunction("Number");
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 1);
 		}
 
-		// Test if delete deletes properly
-		TEST_METHOD(TableDeleteTest5){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
-			t.deleteFunction("Number");
-			string s = "false";
-			if(t.getAttributes().count("Number") > 0) s = "true";
-			Assert::AreEqual<string>(s,"false");
-		}
-
 		// Test table insert
 		TEST_METHOD(TableInsertTest1){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -188,10 +189,13 @@ namespace Team8TestCode
 
 		// Test table insert size 2
 		TEST_METHOD(TableInsertTest2){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			m[1] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			s[1] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			vec.push_back("42");
@@ -202,9 +206,11 @@ namespace Team8TestCode
 
 		// Test that the entry inserted is correct
 		TEST_METHOD(TableInsertTest3){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -215,10 +221,13 @@ namespace Team8TestCode
 
 		// Test that the entry inserted is correct (size 2)
 		TEST_METHOD(TableInsertTest4){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			m[1] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			s[1] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			vec.push_back("42");
@@ -272,9 +281,11 @@ namespace Team8TestCode
 
 		/*Test of 3 record elements*/
 		TEST_METHOD(tableSize_3elem){
-			map<string, Table::TYPE> m;
-			m["Student"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("Bob");
 			Record r(vec);
@@ -292,9 +303,11 @@ namespace Team8TestCode
 
 		/*Test of 2 record elements*/
 		TEST_METHOD(tableSize_2elem){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -308,9 +321,11 @@ namespace Team8TestCode
 
 		/*Test of 1 record elements*/
 		TEST_METHOD(tableSize_1elem){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -321,132 +336,142 @@ namespace Team8TestCode
 
 		/*1 Attribute, 1 record*/
 		TEST_METHOD(renameAttribute1){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
 			Record r(vec);
 			t.insert(r);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes()["Place"] == Table::TYPE::STRING) s = "true";
-			Assert::AreEqual<string>(s, "true"); //not too sure about this
+			string bs = "false";
+			if(t.getAttributeTypes().front() == Table::TYPE::STRING) bs = "true";
+			Assert::AreEqual<string>(bs, "true"); //not too sure about this
 		}
 
 		/*1 Attribute, 1 record*/
 		TEST_METHOD(renameAttribute2){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
 			Record r(vec);
 			t.insert(r);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("Place") > 0) s = "true";
-			Assert::AreEqual<string>(s, "true");
+			string bs = "false";
+			if(t.getAttributes().front() == "Place") bs = "true";
+			Assert::AreEqual<string>(bs, "true");
 		}
 
 		// 1 Attribute, 1 record
 		TEST_METHOD(renameAttribute3){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
 			Record r(vec);
 			t.insert(r);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("School") > 0) s = "true";
-			Assert::AreEqual<string>(s, "false");
+			string bs = "false";
+			if(t.getAttributes().front() == "School") bs = "true";
+			Assert::AreEqual<string>(bs, "false");
 		}
 
 		/*1 Attribute, 0 records*/
 		TEST_METHOD(renameAttribute4){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes()["Place"] == Table::TYPE::STRING) s = "true";
-			Assert::AreEqual<string>(s, "true"); //not too sure about this
+			string bs = "false";
+			if(t.getAttributeTypes().front() == Table::TYPE::STRING) bs = "true";
+			Assert::AreEqual<string>(bs, "true"); //not too sure about this
 		}
 
 		/*1 Attribute, 0 records*/
 		TEST_METHOD(renameAttribute5){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("Place") > 0) s = "true";
-			Assert::AreEqual<string>(s, "true");
+			string bs = "false";
+			if(t.getAttributes().front() == "Place") bs = "true";
+			Assert::AreEqual<string>(bs, "true");
 		}
 
 		// 1 Attribute, 0 records
 		TEST_METHOD(renameAttribute6){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("School") > 0) s = "true";
-			Assert::AreEqual<string>(s, "false");
-		}
-
-		/*2 Attributes, 0 records*/
-		TEST_METHOD(renameAttribute7){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
-			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes()["Place"] == Table::TYPE::STRING) s = "true";
-			Assert::AreEqual<string>(s, "true"); //not too sure about this
+			string bs = "false";
+			if(t.getAttributes().front() == "School") bs = "true";
+			Assert::AreEqual<string>(bs, "false");
 		}
 
 		/*2 Attributes, 0 records*/
 		TEST_METHOD(renameAttribute8){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			m[1] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			s[1] = Table::TYPE::INT;
+			Table t(m,s);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("Place") > 0) s = "true";
-			Assert::AreEqual<string>(s, "true");
+			string bs = "false";
+			if(t.getAttributes().front() == "Place") bs = "true";
+			Assert::AreEqual<string>(bs, "true");
 		}
 
 		// 2 Attributes, 0 records
 		TEST_METHOD(renameAttribute9){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			m[1] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			s[1] = Table::TYPE::INT;
+			Table t(m,s);
 			t.renameAttribute("School", "Place");
-			string s = "false";
-			if(t.getAttributes().count("School") > 0) s = "true";
-			Assert::AreEqual<string>(s, "false");
+			string bs = "false";
+			if(t.getAttributes().front() == "School") bs = "true";
+			Assert::AreEqual<string>(bs, "false");
 		}
 
 	/*Test of cross join function for two tables*/
 		
 		/*Same size tables - Record size check*/
 		TEST_METHOD(crossJoin_SameSizeR){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "School";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
 			Record r1(vec1);
@@ -458,9 +483,11 @@ namespace Team8TestCode
 
 		/*Same size tables - Attribute size check*/
 		TEST_METHOD(crossJoin_SameSizeA){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -469,9 +496,11 @@ namespace Team8TestCode
 			vec2.push_back("TU");
 			Record r2(vec2);
 			t.insert(r2);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "School";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1, s1);
 			vector<string> vec3;
 			vec3.push_back("John");
 			Record r3(vec3);
@@ -487,9 +516,11 @@ namespace Team8TestCode
 
 		/*Different sized tables - Record size check*/
 		TEST_METHOD(crossJoin_DifferentSizeR){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -506,9 +537,11 @@ namespace Team8TestCode
 			vec.push_back("ACU");
 			Record r4(vec);
 			t.insert(r4);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "School";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
 			Record r5(vec1);
@@ -527,9 +560,11 @@ namespace Team8TestCode
 		}
 		/*Different sized tables - Attribute size check*/
 		TEST_METHOD(crossJoin_DifferentSizeA){
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -546,9 +581,11 @@ namespace Team8TestCode
 			vec.push_back("ACU");
 			Record r4(vec);
 			t.insert(r4);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
 			Record r5(vec1);
@@ -570,16 +607,20 @@ namespace Team8TestCode
 
 				/*1 full, 1 empty - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR1){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t, t1);
 			Assert::AreEqual(t3.getSize(), 0); //Cross join with empty table should yield 0 records 
@@ -587,9 +628,11 @@ namespace Team8TestCode
 
 		/*1 full, 1 empty - Attribute size check*/
 		TEST_METHOD(crossJoin_FullEmptyA1){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -598,9 +641,11 @@ namespace Team8TestCode
 			vec2.push_back("TU");
 			Record r2(vec2);
 			t.insert(r2);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t, t1);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 2); //Cross join with empty table should yield sum of attributes
@@ -608,9 +653,11 @@ namespace Team8TestCode
 
 		/*different types full-empty - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR2){ 
-			map<string, Table::TYPE> m; 
-			m["Age"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42");
 			Record r2(vec);
@@ -624,9 +671,11 @@ namespace Team8TestCode
 			Record r4(vec);
 			t.insert(r4);
 			vec.clear();
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			Table t2;
 			t2.crossJoin(t, t1);
 			Assert::AreEqual(t2.getSize(), 0); //Cross join with an empty table should yield 0 records 
@@ -635,9 +684,11 @@ namespace Team8TestCode
 		/*different types full-empty - Attribute size check*/
 
 		TEST_METHOD(crossJoin_FullEmptyA2){ 
-			map<string, Table::TYPE> m; 
-			m["Age"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42.3");
 			Record r2(vec);
@@ -651,9 +702,11 @@ namespace Team8TestCode
 			Record r4(vec);
 			t.insert(r4);
 			vec.clear();
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1, s1);
 			Table t2;
 			t2.crossJoin(t, t1);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 2); //Cross join with an empty table should yield sum of attributes 
@@ -662,9 +715,11 @@ namespace Team8TestCode
 		/*full-empty no attributes in one table - Attribute size check*/
 
 		TEST_METHOD(crossJoin_FullEmptyA3){ 
-			map<string, Table::TYPE> m; 
-			m["Age"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Age";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42.3");
 			Record r2(vec);
@@ -686,25 +741,31 @@ namespace Team8TestCode
 
 		/*Reverse cross join (parameters in crossJoin reversed) - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR3){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "School";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t1, t);
 			Assert::AreEqual(t3.getSize(), 0); //Cross join with empty table should yield 0 records 
 		}
 		/*Reverse cross join - Attribute size check*/
 		TEST_METHOD(crossJoin_FullEmptyA){ 
-			map<string, Table::TYPE> m;
-			m["School"] = Table::TYPE::STRING;
-			Table t(m);
+			vector<string> m;
+			m[0] = "School";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::STRING;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
@@ -713,9 +774,11 @@ namespace Team8TestCode
 			vec2.push_back("TU");
 			Record r2(vec2);
 			t.insert(r2);
-			map<string, Table::TYPE> m1;
-			m1["Student"] = Table::TYPE::STRING;
-			Table t1(m1);
+			vector<string> m1;
+			m1[0] = "Student";
+			vector<Table::TYPE> s1;
+			s1[0] = Table::TYPE::STRING;
+			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t1, t);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 2); //Cross join with empty table should yield sum of attributes
@@ -724,17 +787,21 @@ namespace Team8TestCode
 
 		// Sum tests for INT, case with 0 elements
 		TEST_METHOD(IntSumTest0){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getSum("Number"), 0.0);  //0 entries should return 0?
 		}
 
 		// Sum tests for INT, case with 1 element, 0
 		TEST_METHOD(IntSumTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0");
 			Record r1(vec);
@@ -744,9 +811,11 @@ namespace Team8TestCode
 
 		// Sum tests for INT, case with 1 element, 5
 		TEST_METHOD(IntSumTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
 			Record r1(vec);
@@ -756,9 +825,11 @@ namespace Team8TestCode
 
 		// Sum tests for INT, case with 2 elements, both 0
 		TEST_METHOD(IntSumTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0");
 			Record r1(vec);
@@ -772,9 +843,11 @@ namespace Team8TestCode
 
 		// Sum tests for INT, case with 2 elements, 5 and 7
 		TEST_METHOD(IntSumTest4){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("7");
 			Record r1(vec);
@@ -788,17 +861,21 @@ namespace Team8TestCode
 
 		// Sum tests for FLOAT, case with 0 elements
 		TEST_METHOD(FloatSumTest0){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getSum("Number"), 0.0);
 		}
 
 		// Sum tests for FLOAT, case with 1 element, 0.0
 		TEST_METHOD(FloatSumTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
 			Record r1(vec);
@@ -808,9 +885,11 @@ namespace Team8TestCode
 
 		// Sum tests for FLOAT, case with 1 element, 0.0
 		TEST_METHOD(FloatSumTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5.0");
 			Record r1(vec);
@@ -820,9 +899,11 @@ namespace Team8TestCode
 
 		// Sum tests for FLOAT, case with 2 elements, 0.0 and 0.0
 		TEST_METHOD(FloatSumTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
 			Record r1(vec);
@@ -836,9 +917,11 @@ namespace Team8TestCode
 
 		// Sum tests for FLOAT, case with 2 elements, 5.0 and 7.0
 		TEST_METHOD(FloatSumTest4){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
 			Record r1(vec);
@@ -852,17 +935,21 @@ namespace Team8TestCode
 
 		// Count tests, 0 elements
 		TEST_METHOD(CountTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			Assert::AreEqual<int>(t.getCount("Number"), 0);
 		}
 
 		// Count tests, 1 element
 		TEST_METHOD(CountTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
 			Record r1(vec);
@@ -872,9 +959,11 @@ namespace Team8TestCode
 
 		// Count tests, 2 elements
 		TEST_METHOD(CountTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
 			Record r1(vec);
@@ -888,17 +977,21 @@ namespace Team8TestCode
 
 		// Min test for int, 0 elements  ***What should this be?
 		TEST_METHOD(IntMinTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getMin("Number"), 0);
 		}
 
 		// Min test for int, 1 element
 		TEST_METHOD(IntMinTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
 			Record r(vec);
@@ -908,9 +1001,11 @@ namespace Team8TestCode
 
 		// Min test for int, 2 elements
 		TEST_METHOD(IntMinTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
 			Record r(vec);
@@ -924,17 +1019,21 @@ namespace Team8TestCode
 
 		// Min test for float, 0 elements ***??
 		TEST_METHOD(FloatMinTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getMin("Number"), 0.0);
 		}
 
 				// Min test for int, 1 element
 		TEST_METHOD(FloatMinTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
 			Record r(vec);
@@ -944,9 +1043,11 @@ namespace Team8TestCode
 
 		// Min test for int, 2 elements
 		TEST_METHOD(FloatMinTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
 			Record r(vec);
@@ -960,17 +1061,21 @@ namespace Team8TestCode
 
 		// Max test for int, 0 elements  ***What should this be?
 		TEST_METHOD(IntMaxTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getMax("Number"), 0.0);
 		}
 
 		// Max test for int, 1 element
 		TEST_METHOD(IntMaxTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10");
 			Record r(vec);
@@ -980,9 +1085,11 @@ namespace Team8TestCode
 
 		// Max test for int, 2 elements
 		TEST_METHOD(IntMaxTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::INT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10");
 			Record r(vec);
@@ -996,17 +1103,21 @@ namespace Team8TestCode
 
 		// Max test for float, 0 elements  ***What should this be?
 		TEST_METHOD(FloatMaxTest1){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::INT;
+			Table t(m,s);
 			Assert::AreEqual<float>(t.getMax("Number"), 0.0);
 		}
 
 		// Max test for float, 1 element
 		TEST_METHOD(FloatMaxTest2){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10.0");
 			Record r(vec);
@@ -1016,9 +1127,11 @@ namespace Team8TestCode
 
 		// Max test for int, 2 elements
 		TEST_METHOD(FloatMaxTest3){
-			map<string, Table::TYPE> m;
-			m["Number"] = Table::TYPE::FLOAT;
-			Table t(m);
+			vector<string> m;
+			m[0] = "Number";
+			vector<Table::TYPE> s;
+			s[0] = Table::TYPE::FLOAT;
+			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10.0");
 			Record r(vec);
@@ -1191,10 +1304,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School}} FROM {Table} WHERE {{School = TAMU}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("School") > 0) s = "true";
+			if(t.getAttributes().front() == "School") s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -1210,10 +1323,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School}} FROM {Table} WHERE {{School = TAMU}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("TAMU") > 0) s = "true";
+			if(t.getAttributes().front() == "TAMU") s = "true";
 			Assert::AreEqual<string>(s, "false");
 		}
 
@@ -1231,10 +1344,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 42}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("School") == 1) s = "true";
+			if(t.getAttributes().front() == "School") s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -1252,10 +1365,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 42}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("TAMU") > 0) s = "true";
+			if(t.getAttributes().front() == "TAMU") s = "true";
 			Assert::AreEqual<string>(s, "false");
 		}
 
@@ -1273,7 +1386,7 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 42}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
 			//if(t.getAttributes().count("School") > 0 && t.getAttributes().count("Number") > 0) s = "true";
@@ -1296,7 +1409,7 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 32}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
 			if(t.getSize() > 0) s = "true";
@@ -1317,7 +1430,7 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 32}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
 			//if(t.getAttributes().count("School") > 0 && t.getAttributes().count("Number") > 0) s = "true";
@@ -1339,10 +1452,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School},{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 32}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("School") == 0 && t.getAttributes().count("Number") == 0) s = "true";
+			if(t.getAttributes().front() == "School" == 0 && t.getAttributes().at(1) == "Number") s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -1360,10 +1473,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School}} FROM {Table} WHERE {{School = TAMU} AND {Number = 32}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("School") > 0 && t.getAttributes().count("Number") == 0) s = "true";
+			if(t.getAttributes().front() == "School" && t.getAttributes().at(1) == "Number") s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 		
@@ -1381,10 +1494,10 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{Number}} FROM {Table} WHERE {{School = TAMU} AND {Number = 42}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
-			if(t.getAttributes().count("School") == 0 && t.getAttributes().count("Number") == 1) s = "true";
+			if(t.getAttributes().front() == "School" && t.getAttributes().at(1) == "Number") s = "true";
 			Assert::AreEqual<string>(s, "true");
 		}
 
@@ -1403,7 +1516,7 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School}} FROM {Table} WHERE {{School = TAMU} AND {NOT{Number = 32}}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
 			//if(t.getAttributes().count("School") > 0 && t.getAttributes().count("Number") == 0) s = "true";
@@ -1426,7 +1539,7 @@ namespace Team8TestCode
 			d.addTable(t, "Table");
 			Table t2;
 			t2 = d.evalQuery("SELECT {{School}} FROM {Table} WHERE {{School = TU} OR {Number = 32}}");
-			map<string, Table::TYPE> m2;
+			vector<string> m2;
 			m2 = t2.getAttributes();
 			string s = "false";
 			//if(t.getAttributes().count("School") > 0 && t.getAttributes().count("Number") == 0) s = "true";

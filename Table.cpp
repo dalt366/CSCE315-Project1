@@ -1,5 +1,7 @@
 #include "Table.h"
 
+Table::Table() { }
+
 Table::Table(vector<string> columnNames, vector<Table::TYPE> columnTypes) {
 	this->columnNames = columnNames;
 	this->columnTypes = columnTypes;
@@ -14,7 +16,7 @@ void Table::deleteFunction(string attributeName){
 	vector<string>::iterator nameIter = columnNames.begin();
 	vector<Table::TYPE>::iterator tableIter = columnTypes.begin();
 	while(nameIter != columnNames.end()) {
-		if(nameIter->data == attributeName) {
+		if(*nameIter == attributeName) {
 			// Found the table. Erase it and return true
 			columnNames.erase(nameIter);
 			columnTypes.erase(tableIter);
@@ -53,7 +55,7 @@ Record Table::getRecord(int rowNumber){
 void Table::renameAttribute(string oldName, string newName){
 	vector<string>::iterator position = columnNames.begin();
 	while(position != columnNames.end()) {
-		if(position->data == oldName) {
+		if(*position == oldName) {
 			*position = newName;
 		}
 	}
@@ -116,7 +118,7 @@ bool Table::isValidRecordNumber(int recordNumber) {
 int Table::indexOfAttribute(string attributeName) {
 	vector<string>::iterator columnIter = columnNames.begin();
 	int index = 0;
-	while(columnIter->data != attributeName) {
+	while(*columnIter != attributeName) {
 		columnIter++;
 		index++;
 		if(columnIter == columnNames.end()) {

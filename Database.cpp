@@ -1,5 +1,7 @@
 #include "Database.h"
 
+Database::Database() { }
+
 bool Database::addTable(Table table, string name){
 	// There is database corruption if these sizes are different
 	bool error = tables.size() != tableNames.size();
@@ -15,7 +17,7 @@ bool Database::dropTable(string name){
 	vector<string>::iterator nameIter = tableNames.begin();
 	vector<Table>::iterator tableIter = tables.begin();
 	while(nameIter != tableNames.end()) {
-		if(nameIter->data == name) {
+		if(*nameIter == name) {
 			// Found the table. Erase it and return true
 			tableNames.erase(nameIter);
 			tables.erase(tableIter);
@@ -44,6 +46,8 @@ Table Database::evalQuery(string query){
 
 	Table strippedTable = stripRecords(getTableByName(tableName), whereArgs);
 	strippedTable = selectAttributes(strippedTable, attributes);
+
+	return strippedTable;
 }
 
 void Database::evalDeleteQuery(string query){
@@ -63,7 +67,7 @@ Table Database::stripRecords(Table table, string args) {
 }
 
 Table Database::selectAttributes(Table table, string attributes) {
-	// break up the attributes string and remove those from the table then return
+	return table;
 }
 
 // TODO ----------------------------------------
@@ -78,7 +82,7 @@ Table Database::getTableByName(string tableName) {
 	while(nameIter != tableNames.end()) {
 		nameIter++;
 		tableIter++;
-		if(nameIter->data == tableName) {
+		if(*nameIter == tableName) {
 			index = *tableIter;
 			break;
 		}
