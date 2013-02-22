@@ -43,6 +43,7 @@ Table Database::evalQuery(string query){
 	string whereArgs = queryArgs[2];
 
 	Table strippedTable = stripRecords(getTableByName(tableName), whereArgs);
+	strippedTable = selectAttributes(strippedTable, attributes);
 }
 
 void Database::evalDeleteQuery(string query){
@@ -52,8 +53,22 @@ void Database::evalDeleteQuery(string query){
 // example WHERE {{School = TAMU} AND {Number = 42}}
 Table Database::stripRecords(Table table, string args) {
 	Table newTable;
-	// Magic
+	for(int i = 0; i < table.getSize(); i++) {
+		Record record = table.getRecord(i);
+		if(recordMatches(table.getAttributes(), record, args)) {
+			newTable.insert(record);
+		}
+	}
 	return newTable;
+}
+
+Table Database::selectAttributes(Table table, string attributes) {
+	// break up the attributes string and remove those from the table then return
+}
+
+// TODO ----------------------------------------
+bool Database::recordMatches(vector<string> attributeNames, Record record, string args) {
+		return true;
 }
 
 Table Database::getTableByName(string tableName) {

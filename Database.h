@@ -76,6 +76,13 @@ private:
 	// Strips the records from the table that don't match "args" and then returns it back
 	Table stripRecords(Table table, string args);
 
+	Table selectAttributes(Table table, string attributes);
+
 	 // Return the table of the given name
 	Table getTableByName(string tableName);
+
+	// Test a record to see if it matches the arguments from WHERE
+	bool recordMatches(vector<string> attributeNames, Record record, string args);
+
+
 };
