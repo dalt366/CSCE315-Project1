@@ -62,9 +62,14 @@ void Table::renameAttribute(string oldName, string newName){
 }
 
 
- // TO DO -----------------------------------------------------------
 Table Table::crossJoin(Table table1, Table table2){
-	return table1;
+	Table table3;
+	vector<string> names;
+	names = getAttributes();
+	vector<Table::TYPE> types;
+	types = getAttributeTypes();
+	table3 = Table(names, types);
+	return table3;
 }
 
 float Table::getSum(string attributeName) {
