@@ -16,6 +16,8 @@ int main() {
 
 Table loadData(string filename) {
 	//TODO - build a table from the csv file.
+	ifstream file = ifstream(filename);
 	Table table = Table();
+	file.close();
 	return table;
 }
