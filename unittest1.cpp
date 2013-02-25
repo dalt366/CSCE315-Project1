@@ -61,9 +61,9 @@ namespace Team8TestCode
 		// Tests that the constructor correctly sets the size
 		TEST_METHOD(TableSizeTest2){ //constructor test?
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			Assert::AreEqual(t.getSize(), 0);
 		}
@@ -71,9 +71,9 @@ namespace Team8TestCode
 		// Test attributes size
 		TEST_METHOD(TableAttributeSizeTest2){ //constructor test?
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 1);
 		}
@@ -88,9 +88,9 @@ namespace Team8TestCode
 		// Test attribute size with add function, on table created with map constructor
 		TEST_METHOD(TableAddAttributeTest2){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			t.add("Number", Table::INT);
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 2);
@@ -152,9 +152,9 @@ namespace Team8TestCode
 		// Test delete on table with one attribute, (map constructor)
 		TEST_METHOD(TableDeleteTest3){ //same as above
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			t.deleteFunction("Number");
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 0);
@@ -163,11 +163,11 @@ namespace Team8TestCode
 		// Test delete on table with two attributes, (map constructor)
 		TEST_METHOD(TableDeleteTest4){ //same as above
 			vector<string> m;
-			m[0] = "School";
-			m[1] = "Number";
+			m.push_back("School");
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
-			s[1] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::STRING);
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			t.deleteFunction("Number");
 			Assert::AreEqual(t.getAttributes().size(),(size_t) 1);
@@ -176,9 +176,9 @@ namespace Team8TestCode
 		// Test table insert
 		TEST_METHOD(TableInsertTest1){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -190,11 +190,11 @@ namespace Team8TestCode
 		// Test table insert size 2
 		TEST_METHOD(TableInsertTest2){
 			vector<string> m;
-			m[0] = "School";
-			m[1] = "Number";
+			m.push_back("School");
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
-			s[1] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::STRING);
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -207,9 +207,9 @@ namespace Team8TestCode
 		// Test that the entry inserted is correct
 		TEST_METHOD(TableInsertTest3){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -222,11 +222,11 @@ namespace Team8TestCode
 		// Test that the entry inserted is correct (size 2)
 		TEST_METHOD(TableInsertTest4){
 			vector<string> m;
-			m[0] = "School";
-			m[1] = "Number";
+			m.push_back("School");
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
-			s[1] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::STRING);
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -282,9 +282,9 @@ namespace Team8TestCode
 		/*Test of 3 record elements*/
 		TEST_METHOD(tableSize_3elem){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("Bob");
@@ -304,9 +304,9 @@ namespace Team8TestCode
 		/*Test of 2 record elements*/
 		TEST_METHOD(tableSize_2elem){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -322,9 +322,9 @@ namespace Team8TestCode
 		/*Test of 1 record elements*/
 		TEST_METHOD(tableSize_1elem){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -337,9 +337,9 @@ namespace Team8TestCode
 		/*1 Attribute, 1 record*/
 		TEST_METHOD(renameAttribute1){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
@@ -354,9 +354,9 @@ namespace Team8TestCode
 		/*1 Attribute, 1 record*/
 		TEST_METHOD(renameAttribute2){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
@@ -371,9 +371,9 @@ namespace Team8TestCode
 		// 1 Attribute, 1 record
 		TEST_METHOD(renameAttribute3){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("school1");
@@ -388,9 +388,9 @@ namespace Team8TestCode
 		/*1 Attribute, 0 records*/
 		TEST_METHOD(renameAttribute4){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			t.renameAttribute("School", "Place");
 			string bs = "false";
@@ -401,9 +401,9 @@ namespace Team8TestCode
 		/*1 Attribute, 0 records*/
 		TEST_METHOD(renameAttribute5){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			t.renameAttribute("School", "Place");
 			string bs = "false";
@@ -414,9 +414,9 @@ namespace Team8TestCode
 		// 1 Attribute, 0 records
 		TEST_METHOD(renameAttribute6){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			t.renameAttribute("School", "Place");
 			string bs = "false";
@@ -427,11 +427,11 @@ namespace Team8TestCode
 		/*2 Attributes, 0 records*/
 		TEST_METHOD(renameAttribute8){
 			vector<string> m;
-			m[0] = "School";
-			m[1] = "Number";
+			m.push_back("School");
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
-			s[1] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::STRING);
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			t.renameAttribute("School", "Place");
 			string bs = "false";
@@ -442,11 +442,11 @@ namespace Team8TestCode
 		// 2 Attributes, 0 records
 		TEST_METHOD(renameAttribute9){
 			vector<string> m;
-			m[0] = "School";
-			m[1] = "Number";
+			m.push_back("School");
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
-			s[1] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::STRING);
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			t.renameAttribute("School", "Place");
 			string bs = "false";
@@ -459,18 +459,18 @@ namespace Team8TestCode
 		/*Same size tables - Record size check*/
 		TEST_METHOD(crossJoin_SameSizeR){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
 			vector<string> m1;
-			m1[0] = "School";
+			m1.push_back("School");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
@@ -484,9 +484,9 @@ namespace Team8TestCode
 		/*Same size tables - Attribute size check*/
 		TEST_METHOD(crossJoin_SameSizeA){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -497,9 +497,9 @@ namespace Team8TestCode
 			Record r2(vec2);
 			t.insert(r2);
 			vector<string> m1;
-			m1[0] = "School";
+			m1.push_back("School");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1, s1);
 			vector<string> vec3;
 			vec3.push_back("John");
@@ -517,9 +517,9 @@ namespace Team8TestCode
 		/*Different sized tables - Record size check*/
 		TEST_METHOD(crossJoin_DifferentSizeR){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -538,9 +538,9 @@ namespace Team8TestCode
 			Record r4(vec);
 			t.insert(r4);
 			vector<string> m1;
-			m1[0] = "School";
+			m1.push_back("School");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
@@ -561,9 +561,9 @@ namespace Team8TestCode
 		/*Different sized tables - Attribute size check*/
 		TEST_METHOD(crossJoin_DifferentSizeA){
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -582,9 +582,9 @@ namespace Team8TestCode
 			Record r4(vec);
 			t.insert(r4);
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			vector<string> vec1;
 			vec1.push_back("John");
@@ -608,18 +608,18 @@ namespace Team8TestCode
 				/*1 full, 1 empty - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR1){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t, t1);
@@ -629,9 +629,9 @@ namespace Team8TestCode
 		/*1 full, 1 empty - Attribute size check*/
 		TEST_METHOD(crossJoin_FullEmptyA1){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -642,9 +642,9 @@ namespace Team8TestCode
 			Record r2(vec2);
 			t.insert(r2);
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t, t1);
@@ -654,9 +654,9 @@ namespace Team8TestCode
 		/*different types full-empty - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR2){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42");
@@ -672,9 +672,9 @@ namespace Team8TestCode
 			t.insert(r4);
 			vec.clear();
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			Table t2;
 			t2.crossJoin(t, t1);
@@ -685,9 +685,9 @@ namespace Team8TestCode
 
 		TEST_METHOD(crossJoin_FullEmptyA2){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42.3");
@@ -703,9 +703,9 @@ namespace Team8TestCode
 			t.insert(r4);
 			vec.clear();
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1, s1);
 			Table t2;
 			t2.crossJoin(t, t1);
@@ -716,9 +716,9 @@ namespace Team8TestCode
 
 		TEST_METHOD(crossJoin_FullEmptyA3){ 
 			vector<string> m;
-			m[0] = "Age";
+			m.push_back("Age");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("42.3");
@@ -742,18 +742,18 @@ namespace Team8TestCode
 		/*Reverse cross join (parameters in crossJoin reversed) - Record size check*/
 		TEST_METHOD(crossJoin_FullEmptyR3){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
 			Record r(vec);
 			t.insert(r);
 			vector<string> m1;
-			m1[0] = "School";
+			m1.push_back("School");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t1, t);
@@ -762,9 +762,9 @@ namespace Team8TestCode
 		/*Reverse cross join - Attribute size check*/
 		TEST_METHOD(crossJoin_FullEmptyA){ 
 			vector<string> m;
-			m[0] = "School";
+			m.push_back("School");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::STRING;
+			s.push_back(Table::TYPE::STRING);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("TAMU");
@@ -775,9 +775,9 @@ namespace Team8TestCode
 			Record r2(vec2);
 			t.insert(r2);
 			vector<string> m1;
-			m1[0] = "Student";
+			m1.push_back("Student");
 			vector<Table::TYPE> s1;
-			s1[0] = Table::TYPE::STRING;
+			s1.push_back(Table::TYPE::STRING);
 			Table t1(m1,s1);
 			Table t3;
 			t3.crossJoin(t1, t);
@@ -788,9 +788,9 @@ namespace Team8TestCode
 		// Sum tests for INT, case with 0 elements
 		TEST_METHOD(IntSumTest0){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getSum("Number"), 0.0);  //0 entries should return 0?
 		}
@@ -798,9 +798,9 @@ namespace Team8TestCode
 		// Sum tests for INT, case with 1 element, 0
 		TEST_METHOD(IntSumTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0");
@@ -812,9 +812,9 @@ namespace Team8TestCode
 		// Sum tests for INT, case with 1 element, 5
 		TEST_METHOD(IntSumTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
@@ -826,9 +826,9 @@ namespace Team8TestCode
 		// Sum tests for INT, case with 2 elements, both 0
 		TEST_METHOD(IntSumTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0");
@@ -844,9 +844,9 @@ namespace Team8TestCode
 		// Sum tests for INT, case with 2 elements, 5 and 7
 		TEST_METHOD(IntSumTest4){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("7");
@@ -862,9 +862,9 @@ namespace Team8TestCode
 		// Sum tests for FLOAT, case with 0 elements
 		TEST_METHOD(FloatSumTest0){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getSum("Number"), 0.0);
 		}
@@ -872,9 +872,9 @@ namespace Team8TestCode
 		// Sum tests for FLOAT, case with 1 element, 0.0
 		TEST_METHOD(FloatSumTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
@@ -886,9 +886,9 @@ namespace Team8TestCode
 		// Sum tests for FLOAT, case with 1 element, 0.0
 		TEST_METHOD(FloatSumTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5.0");
@@ -900,9 +900,9 @@ namespace Team8TestCode
 		// Sum tests for FLOAT, case with 2 elements, 0.0 and 0.0
 		TEST_METHOD(FloatSumTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
@@ -918,9 +918,9 @@ namespace Team8TestCode
 		// Sum tests for FLOAT, case with 2 elements, 5.0 and 7.0
 		TEST_METHOD(FloatSumTest4){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
@@ -936,9 +936,9 @@ namespace Team8TestCode
 		// Count tests, 0 elements
 		TEST_METHOD(CountTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			Assert::AreEqual<int>(t.getCount("Number"), 0);
 		}
@@ -946,9 +946,9 @@ namespace Team8TestCode
 		// Count tests, 1 element
 		TEST_METHOD(CountTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
@@ -960,9 +960,9 @@ namespace Team8TestCode
 		// Count tests, 2 elements
 		TEST_METHOD(CountTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("0.0");
@@ -978,9 +978,9 @@ namespace Team8TestCode
 		// Min test for int, 0 elements  ***What should this be?
 		TEST_METHOD(IntMinTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getMin("Number"), 0);
 		}
@@ -988,9 +988,9 @@ namespace Team8TestCode
 		// Min test for int, 1 element
 		TEST_METHOD(IntMinTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
@@ -1002,9 +1002,9 @@ namespace Team8TestCode
 		// Min test for int, 2 elements
 		TEST_METHOD(IntMinTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
@@ -1020,9 +1020,9 @@ namespace Team8TestCode
 		// Min test for float, 0 elements ***??
 		TEST_METHOD(FloatMinTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getMin("Number"), 0.0);
 		}
@@ -1030,9 +1030,9 @@ namespace Team8TestCode
 				// Min test for int, 1 element
 		TEST_METHOD(FloatMinTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
@@ -1044,9 +1044,9 @@ namespace Team8TestCode
 		// Min test for int, 2 elements
 		TEST_METHOD(FloatMinTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("5");
@@ -1062,9 +1062,9 @@ namespace Team8TestCode
 		// Max test for int, 0 elements  ***What should this be?
 		TEST_METHOD(IntMaxTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getMax("Number"), 0.0);
 		}
@@ -1072,9 +1072,9 @@ namespace Team8TestCode
 		// Max test for int, 1 element
 		TEST_METHOD(IntMaxTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10");
@@ -1086,9 +1086,9 @@ namespace Team8TestCode
 		// Max test for int, 2 elements
 		TEST_METHOD(IntMaxTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10");
@@ -1104,9 +1104,9 @@ namespace Team8TestCode
 		// Max test for float, 0 elements  ***What should this be?
 		TEST_METHOD(FloatMaxTest1){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::INT;
+			s.push_back(Table::TYPE::INT);
 			Table t(m,s);
 			Assert::AreEqual<float>(t.getMax("Number"), 0.0);
 		}
@@ -1114,9 +1114,9 @@ namespace Team8TestCode
 		// Max test for float, 1 element
 		TEST_METHOD(FloatMaxTest2){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10.0");
@@ -1128,9 +1128,9 @@ namespace Team8TestCode
 		// Max test for int, 2 elements
 		TEST_METHOD(FloatMaxTest3){
 			vector<string> m;
-			m[0] = "Number";
+			m.push_back("Number");
 			vector<Table::TYPE> s;
-			s[0] = Table::TYPE::FLOAT;
+			s.push_back(Table::TYPE::FLOAT);
 			Table t(m,s);
 			vector<string> vec;
 			vec.push_back("10.0");
