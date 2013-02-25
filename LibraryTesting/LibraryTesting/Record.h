@@ -7,7 +7,7 @@
 #ifndef RECORD_H
 #define RECORD_H
 
-class __declspec(dllexport) Record {
+class __declspec(dllimport) Record {
 public:
 	Record();
 	Record(const Record &in);

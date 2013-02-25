@@ -2,7 +2,7 @@
 #ifndef TABLE_H
 #define TABLE_H
 
-class __declspec(dllexport) Table {	
+class __declspec(dllimport) Table {	
 public:
 	enum Type {INT, FLOAT, string, DATE};
 

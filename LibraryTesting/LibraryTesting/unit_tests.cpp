@@ -2,9 +2,9 @@
 #include "Record.h"
 #include "Database.h"
 
-#define BOOST_TEST_MODULE MyTest
-#include "./boost/test/unit_test.hpp"
-
+#define BOOST_TEST_DYN_LINK
+#define BOOST_TEST_MODULE Main
+#include <./boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE( my_test )
 {
@@ -167,4 +167,5 @@ BOOST_AUTO_TEST_CASE( my_test )
 	test_db->dropTable("Table9000");	
 	test_db->dropTable("Table9000");	
 	BOOST_CHECK(test_db->listTables().size() == 2);
+}
 }

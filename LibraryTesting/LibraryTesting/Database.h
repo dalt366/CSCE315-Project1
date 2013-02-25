@@ -8,7 +8,7 @@
 #define TOKEN_KIND_VAL 'v'
 #define TOKEN_KIND_LOG 'l'
 
-class __declspec(dllexport)  Database {
+class __declspec(dllimport)  Database {
 private:
 	class Token;
 
