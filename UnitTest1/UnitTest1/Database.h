@@ -1,9 +1,3 @@
-#ifdef DBDLL_EXPORTS
-#define DBDLL_API __declspec(dllexport) 
-#else
-#define DBDLL_API __declspec(dllimport) 
-#endif
-
 #pragma once
 
 /* Database.h
@@ -17,7 +11,7 @@
 
 using namespace std;
 
-class DBDLL_API Database {
+class Database {
 public:
 
 	/*!

@@ -178,6 +178,9 @@ Table::TYPE Database::getAttributeType(vector<string> attributeNames, vector<Tab
 
 
 Table * Database::getTableByName(string tableName) {
+	int pos1 = tableName.find('{');
+	int pos2 = tableName.find('}');
+	tableName = tableName.substr(pos1, pos2);
 	vector<string>::iterator nameIter = tableNames.begin();
 	vector<Table>::iterator tableIter = tables.begin();
 	Table * index = NULL;
@@ -197,21 +200,21 @@ vector<string> Database::splitQueryArguments(string query) {
 
 	// Strip off the SELECT
 	int caratPos = query.find("SELECT");
-	query = query.substr(caratPos+1);
+	query = query.substr(caratPos+6);
 
 	// Grab the SELECT args and put them in the vector
 	caratPos = query.find("FROM");
 	args.push_back(query.substr(0,caratPos-1));
 
 	// Strip off the FROM
-	query = query.substr(caratPos+1);
+	query = query.substr(caratPos+4);
 
 	// Grab the FROM args and put them in the vector
 	caratPos = query.find("WHERE");
 	args.push_back(query.substr(0,caratPos-1));
 
 	// Strip off the WHERE
-	query = query.substr(caratPos+1);
+	query = query.substr(caratPos+5);
 
 	// Push the WHERE args to the vector
 	args.push_back(query);
