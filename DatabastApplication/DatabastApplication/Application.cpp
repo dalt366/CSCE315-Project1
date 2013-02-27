@@ -9,6 +9,8 @@ void loadData(Table& destTable, string filename); // Loads a table from a .csv
 int getMenuSelection(); // Shows the menu and gets the choice
 void printTables(Database &db);
 void printRecords(Database &db, string tableName);
+void printCustomerInfo(Database &db, string customerName);
+void printRestaurantInfo(Database &db, string restaurantName);
 
 int main() {
 	//Initialize the database
@@ -47,11 +49,28 @@ int main() {
 			break;
 		case 2:
 			{
-			printf("Enter the table name: ");
-			string tableName;
-			cin >> tableName;
-			printRecords(*database, tableName);
-			break;
+				printf("Enter the table name: ");
+				string tableName;
+				cin >> tableName;
+				printRecords(*database, tableName);
+				break;
+			}
+		case 3:
+			{
+				printf("Enter the customer name: ");
+				string customerName;
+				cin >> customerName;
+				printCustomerInfo(*database, customerName);
+				break;
+			}
+		case 4:
+			{
+				printf("Enter the restaurant name: ");
+				string restaurantName;
+				cin.get();
+				getline(cin, restaurantName);
+				printRestaurantInfo(*database, restaurantName);
+				break;
 			}
 		default:
 			cout << "Invalid choice \n\n" << endl;
@@ -68,12 +87,48 @@ int getMenuSelection() {
 	cout << "---------" << endl;
 	cout << "\t" << "1) Print the list of tables" << endl; //Currently for debug purposes
 	cout << "\t" << "2) Print the records in a table" << endl; //Currently for debug purposes
-	cout << "\t" << "3) Another cool option!" << endl;
+	cout << "\t" << "3) Print information about a specific customer" << endl;
+	cout << "\t" << "4) Print information about a specific restaurant" << endl;
 	cout << "\t" << "0) Exit" << endl;
 	cout << "Enter your selection (number): ";
 	int choice;
 	cin >> choice;
 	return choice;
+}
+
+// Prints information about a specific customer
+void printCustomerInfo(Database &db, string customerName) {
+	vector<string> tables = vector<string>();
+	Table queryResult = db.query(tables, "Customers", "userID = \"" + customerName + "\"");
+	vector<AttributeList> attr_lists = queryResult.getAttributes();
+	if(queryResult.getSize() == 0) {
+		printf("Customer \"%s\" could not be found\n", customerName.c_str());
+		return;
+	}
+	for (int i = 0; i < queryResult.getSize(); ++i) {
+		for (unsigned int j = 0; j < attr_lists.size(); ++j) {
+			printf("%-17s %s \n", attr_lists[j].getName().c_str(),  attr_lists[j].getAt(i).c_str());
+		}
+		printf("\n");
+	}
+	return;
+}
+
+void printRestaurantInfo(Database &db, string restaurantName) {
+	vector<string> tables = vector<string>();
+	Table queryResult = db.query(tables, "Restaurants", "(placeID = \"" + restaurantName + "\") OR (name = \"" + restaurantName + "\"");
+	vector<AttributeList> attr_lists = queryResult.getAttributes();
+	if(queryResult.getSize() == 0) {
+		printf("Restaurant \"%s\" could not be found\n", restaurantName.c_str());
+		return;
+	}
+	for (int i = 0; i < queryResult.getSize(); ++i) {
+		for (unsigned int j = 0; j < attr_lists.size(); ++j) {
+			printf("%-17s %s \n", attr_lists[j].getName().c_str(),  attr_lists[j].getAt(i).c_str());
+		}
+		printf("\n");
+	}
+	return;
 }
 
 // Used for debug purposes
@@ -87,20 +142,15 @@ void printRecords(Database &db, string tableName) {
 	}
 	if(index == -1) {
 		// Table not found.
-		printf("Table %s not found \n", tableName.c_str());
+		printf("Table \"%s\" not found \n", tableName.c_str());
 		return;
 	}
 	else {
 		Table table = db.getTables()[index];
-		Table::Iterator iter = table.first();
-		while(true) {
-			Record record = iter.next();
-			if(record.size() <= 0) {
-				// End the loop, last record reached?
-				break;
-			}
-			for(int i = 0; i < record.size(); i++) {
-				printf("%s", record.getAt(i).c_str());
+		vector<AttributeList> attr_lists = table.getAttributes();
+		for (int i = 0; i < table.getSize(); ++i) {
+			for (unsigned int j = 0; j < attr_lists.size(); ++j) {
+				printf("%s", attr_lists[j].getAt(i).c_str());
 			}
 			printf("\n");
 		}
@@ -144,17 +194,17 @@ void loadData(Table& destTable, string filename) {
 
 	//Fill the table with records
 	while(getline(file, line)) {
-		Record record = Record();
-
 		stringstream sstream(line);
-		string item;
+		vector<string> items = vector<string>();
+		string item = "";
 		int index = 0;
 		while(getline(sstream, item, ',')) {
-			//printf("Loading item %s \n", item.c_str());
-			record.setAt(index++, item);
+			//printf("Loading item %s \n", (*item).c_str());
+			items.push_back(item);
+			//printf("Loaded item %s \n", record->getAt(0));
 		}
 
-		destTable.insert(record);
+		destTable.insert(Record(items));
 	}
 
 	// Close and return
