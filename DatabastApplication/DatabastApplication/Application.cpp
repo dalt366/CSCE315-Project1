@@ -12,6 +12,7 @@ void printRecords(Database &db, string tableName);
 void printCustomerInfo(Database &db, string customerName);
 void printRestaurantInfo(Database &db, string restaurantName);
 void printRestaurantRatings(Database &db, string restaurantName);
+enum MENU { EXIT, CUSTOMER_INFO, RESTAURANT_INFO, RESTAURANT_RATINGS };
 
 int main() {
 	//Initialize the database
@@ -45,10 +46,12 @@ int main() {
 	for(;;) {
 		int choice = getMenuSelection();
 		switch(choice) {
-		case 1:
-			printTables(*database);
-			break;
-		case 2:
+		case -1:
+			{
+				printTables(*database);
+				break;
+			}
+		case -2:
 			{
 				printf("Enter the table name: ");
 				string tableName;
@@ -56,7 +59,11 @@ int main() {
 				printRecords(*database, tableName);
 				break;
 			}
-		case 3:
+		case MENU::EXIT:
+			{
+				return 0; // Success
+			}
+		case MENU::CUSTOMER_INFO:
 			{
 				printf("Enter the customer name: ");
 				string customerName;
@@ -64,7 +71,7 @@ int main() {
 				printCustomerInfo(*database, customerName);
 				break;
 			}
-		case 4:
+		case MENU::RESTAURANT_INFO:
 			{
 				printf("Enter the restaurant name: ");
 				string restaurantName;
@@ -73,7 +80,7 @@ int main() {
 				printRestaurantInfo(*database, restaurantName);
 				break;
 			}
-		case 5:
+		case MENU::RESTAURANT_RATINGS:
 			{
 				printf("Enter the restaurant name: ");
 				string restaurantName;
@@ -87,11 +94,7 @@ int main() {
 				cout << "Invalid choice \n\n" << endl;
 			}
 		}
-		if(choice == 0) {
-			break;
-		}
 	}
-	return 0; // Program exit 
 }
 
 int getMenuSelection() {
@@ -99,12 +102,12 @@ int getMenuSelection() {
 	string input = "";
 	cout << "MAIN MENU" << endl;
 	cout << "---------" << endl;
-	cout << "\t" << "1) Print the list of tables" << endl; //Currently for debug purposes
-	cout << "\t" << "2) Print the records in a table" << endl; //Currently for debug purposes
-	cout << "\t" << "3) Print information about a specific customer" << endl;
-	cout << "\t" << "4) Print information about a specific restaurant" << endl;
-	cout << "\t" << "5) Print ratings for a sepcific restaurant" << endl;
+	cout << "\t" << "1) Print information about a specific customer" << endl;
+	cout << "\t" << "2) Print information about a specific restaurant" << endl;
+	cout << "\t" << "3) Print ratings for a sepcific restaurant" << endl;
 	cout << "\t" << "0) Exit" << endl;
+	cout << "\t" << "-1) Print the list of tables (DEBUG)" << endl; //Currently for debug purposes
+	cout << "\t" << "-2) Print the records in a table (DEBUG)" << endl; //Currently for debug purposes
 	cout << "Enter your selection (number): ";
 	cin >> input;
 	choice = atoi(input.c_str());
@@ -129,6 +132,7 @@ void printCustomerInfo(Database &db, string customerName) {
 	return;
 }
 
+// Print information about a sepcific restaurant
 void printRestaurantInfo(Database &db, string restaurantName) {
 	vector<string> attributes = vector<string>();
 	Table queryResult = db.query(attributes, "Restaurants", "(name = \"" + restaurantName + "\") OR (placeID = \"" + restaurantName + "\")");
@@ -199,7 +203,7 @@ void printRecords(Database &db, string tableName) {
 		vector<AttributeList> attr_lists = table.getAttributes();
 		for (int i = 0; i < table.getSize(); ++i) {
 			for (unsigned int j = 0; j < attr_lists.size(); ++j) {
-				printf("%s", attr_lists[j].getAt(i).c_str());
+				printf("%s ", attr_lists[j].getAt(i).c_str());
 			}
 			printf("\n");
 		}
