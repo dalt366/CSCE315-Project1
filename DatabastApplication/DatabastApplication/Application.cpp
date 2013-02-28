@@ -13,7 +13,8 @@ void printCustomerInfo(Database &db, string customerName);
 void printRestaurantInfo(Database &db, string restaurantName);
 void printRestaurantRatings(Database &db, string restaurantName);
 void customerBreakdown(Database &db);
-enum MENU { EXIT, CUSTOMER_INFO, RESTAURANT_INFO, RESTAURANT_RATINGS, CUSTOMER_BREAKDOWN };
+void printCustomerRatings(Database &db, string customerName);
+enum MENU { EXIT, CUSTOMER_INFO, RESTAURANT_INFO, RESTAURANT_RATINGS, CUSTOMER_BREAKDOWN, CUSTOMER_RATINGS };
 
 int main() {
 	//Initialize the database
@@ -95,6 +96,15 @@ int main() {
 				customerBreakdown(*database);
 				break;
 			}
+		case MENU::CUSTOMER_RATINGS:
+			{
+				printf("Enter the customer name: ");
+				string restaurantName;
+				cin.get();
+				getline(cin, restaurantName);
+				printCustomerRatings(*database, restaurantName);
+				break;
+			}
 		default:
 			{
 				cout << "Invalid choice \n\n" << endl;
@@ -106,12 +116,14 @@ int main() {
 int getMenuSelection() {
 	int choice = 0;
 	string input = "";
+	cout << "---------" << endl;
 	cout << "MAIN MENU" << endl;
 	cout << "---------" << endl;
 	cout << "\t" << "1) Print information about a specific customer" << endl;
 	cout << "\t" << "2) Print information about a specific restaurant" << endl;
 	cout << "\t" << "3) Print ratings for a specific restaurant" << endl;
 	cout << "\t" << "4) Print out a breakdown of a certain customer attribute" << endl;
+	cout << "\t" << "5) Print ratings for a specific customer" << endl;
 	cout << "\t" << "0) Exit" << endl;
 	cout << "\t" << "-1) Print the list of tables (DEBUG)" << endl; //Currently for debug purposes
 	cout << "\t" << "-2) Print the records in a table (DEBUG)" << endl; //Currently for debug purposes
@@ -231,7 +243,29 @@ void customerBreakdown(Database &db) {
 		printf("%-25s %f%%\n", iter->first.c_str(), iter->second/total*100);
 		iter++;
 	}
+	printf("\n");
+}
 
+// Prints all the ratings for a customer based off name.
+void printCustomerRatings(Database &db, string customerName) {
+	vector<string> attributes = vector<string>();
+	Table queryResult = db.query(attributes, "Ratings", "userID = \"" + customerName + "\"");
+	vector<AttributeList> attr_lists = queryResult.getAttributes();
+	if(queryResult.getSize() == 0) {
+		printf("Rating query failed. \"%s\" has no ratings!\n", customerName.c_str());
+		return;
+	}
+	printf("%-15s %-15s %-15s %-15s\n", "placeID", "Rating", "Food Rating", "Service Rating");
+	double rating = 0, foodRating = 0, serviceRating = 0, count = 0;
+	//Start at 1 to skip the attribute type
+	for(int i = 0; i < queryResult.getSize(); ++i) {
+		rating += atoi(attr_lists[2].getAt(i).c_str());
+		foodRating += atoi(attr_lists[3].getAt(i).c_str());
+		serviceRating += atoi(attr_lists[4].getAt(i).c_str());
+		count++;
+		printf("%-15s %-15s %-15s %-15s \n",  attr_lists[1].getAt(i).c_str(),  attr_lists[2].getAt(i).c_str(),  attr_lists[3].getAt(i).c_str(),  attr_lists[4].getAt(i).c_str());
+	}
+	printf("%-15s %%%-14f %%%-14f %%%-14f \n", "Acceptance:", rating/count/2*100, foodRating/count/2*100, serviceRating/count/2*100);
 }
 
 // Used for debug purposes
