@@ -12,7 +12,8 @@ void printRecords(Database &db, string tableName);
 void printCustomerInfo(Database &db, string customerName);
 void printRestaurantInfo(Database &db, string restaurantName);
 void printRestaurantRatings(Database &db, string restaurantName);
-enum MENU { EXIT, CUSTOMER_INFO, RESTAURANT_INFO, RESTAURANT_RATINGS };
+void customerBreakdown(Database &db);
+enum MENU { EXIT, CUSTOMER_INFO, RESTAURANT_INFO, RESTAURANT_RATINGS, CUSTOMER_BREAKDOWN };
 
 int main() {
 	//Initialize the database
@@ -61,7 +62,7 @@ int main() {
 			}
 		case MENU::EXIT:
 			{
-				return 0; // Success
+				return 0; // Exit program with success code
 			}
 		case MENU::CUSTOMER_INFO:
 			{
@@ -89,6 +90,11 @@ int main() {
 				printRestaurantRatings(*database, restaurantName);
 				break;
 			}
+		case MENU::CUSTOMER_BREAKDOWN:
+			{
+				customerBreakdown(*database);
+				break;
+			}
 		default:
 			{
 				cout << "Invalid choice \n\n" << endl;
@@ -104,7 +110,8 @@ int getMenuSelection() {
 	cout << "---------" << endl;
 	cout << "\t" << "1) Print information about a specific customer" << endl;
 	cout << "\t" << "2) Print information about a specific restaurant" << endl;
-	cout << "\t" << "3) Print ratings for a sepcific restaurant" << endl;
+	cout << "\t" << "3) Print ratings for a specific restaurant" << endl;
+	cout << "\t" << "4) Print out a breakdown of a certain customer attribute" << endl;
 	cout << "\t" << "0) Exit" << endl;
 	cout << "\t" << "-1) Print the list of tables (DEBUG)" << endl; //Currently for debug purposes
 	cout << "\t" << "-2) Print the records in a table (DEBUG)" << endl; //Currently for debug purposes
@@ -182,6 +189,49 @@ void printRestaurantRatings(Database &db, string restaurantName) {
 		printf("%-15s %-15s %-15s %-15s \n",  attr_lists[0].getAt(i).c_str(),  attr_lists[2].getAt(i).c_str(),  attr_lists[3].getAt(i).c_str(),  attr_lists[4].getAt(i).c_str());
 	}
 	printf("%-15s %%%-14f %%%-14f %%%-14f \n", "Acceptance:", rating/count/2*100, foodRating/count/2*100, serviceRating/count/2*100);
+}
+
+// Lists attributes and presents a percentage breakdown based on that attribute
+void customerBreakdown(Database &db) {
+	vector<Table> tables = db.getTables();
+	vector<string> tableNames = db.listTables();
+	int i = 0;
+	while(tableNames[i].compare("Customers") != 0) {
+		i++;
+		if(i >= tableNames.size())
+			break;
+	}
+
+	vector<AttributeList> attributes = tables[i].getAttributes();
+	printf("For which attribute would you like to get a percentage break down? \n");
+	for(unsigned int i = 0; i < attributes.size(); i++) {
+		printf("Attribute %i is \"%s\"\n", i, attributes[i].getName().c_str());
+	}
+
+	printf("\nPlease enter your choice(number). The default will be choice 0: ");
+	string input;
+	int choice;
+	cin >> input;
+	choice = atoi(input.c_str());
+	if(choice < 0 || choice >= attributes.size()) {
+		choice = 0;
+	}
+
+	map<string, float> frequency;
+	int total = 0;
+	for(int j = 0; j < tables[i].getSize(); j++) {
+		string item = attributes[choice].getAt(j);
+		frequency[item] = frequency[item] + 1;
+		total++;
+	}
+
+	map<string, float>::iterator iter = frequency.begin();
+	printf("Here is a percentage breakdown of customer's attribute \"%s\"\n", attributes[choice].getName().c_str());
+	while(iter != frequency.end()) {
+		printf("%-25s %f%%\n", iter->first.c_str(), iter->second/total*100);
+		iter++;
+	}
+
 }
 
 // Used for debug purposes
