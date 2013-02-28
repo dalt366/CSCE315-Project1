@@ -4,13 +4,21 @@ Database::Database() { }
 
 bool Database::addTable(Table table, string name){
 	// There is database corruption if these sizes are different
+	bool sameName=true;
+	for(int i=0; i < tableNames.size();i++){
+		if(tableNames[i] == name){
+		sameName = false;
+		}
+		else
+		sameName = true;
+	}
 	bool error = (tables.size() != tableNames.size()) && (getTableByName(name) != NULL);
-	if(!error) {
+	if(!error && sameName) {
 		tables.push_back(table);
 		tableNames.push_back(name);
 	}
 	// Return true if success (no error)
-	return !error;
+	return (!error && sameName);
 }
 
 bool Database::dropTable(string name){
@@ -49,9 +57,24 @@ Table Database::evalQuery(string query){
 
 	return strippedTable;
 }
-
+//Todo doesnt work for correctly deleteing
 void Database::evalDeleteQuery(string query){
 	vector<string> queryArgs = splitQueryArguments(query);
+	string attributes = queryArgs[0];
+	string tableName = queryArgs[1];
+	string whereArgs = queryArgs[2];
+	bool drop;
+
+	Table strippedTable = stripRecords(*(getTableByName(tableName)), whereArgs);
+	strippedTable = selectAttributes(strippedTable, attributes);
+
+	for(int i=0; i < strippedTable.getSize();i++){
+		if(tableNames[0] == whereArgs){
+		drop = false;
+		}
+		else
+		drop = true;
+	}
 }
 
 Table Database::stripRecords(Table table, string args) {
@@ -91,6 +114,10 @@ bool Database::recordMatchesArgs(vector<string> attributeNames, vector<Table::TY
 	case 'O':
 		if(args[1] == 'R') {
 			match = match || recordMatchesArgs(attributeNames, attributeTypes, record, args.substr(2));
+		}
+	case 'N':
+		if(args[1] == 'O' && args[2] == 'T') {
+			match = !recordMatchesArgs(attributeNames, attributeTypes, record, args.substr(3));
 		}
 		break;
 	default:
