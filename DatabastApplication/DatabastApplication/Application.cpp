@@ -305,7 +305,7 @@ void Application::printRestaurantsByCuisine(Database &db) {
 	}
 	
 
-	//Buggy, can't get it to display restaurant name
+	// Buggy. This should work but doesn't for some reason. Problem with query() ?
 	printf("Here is a list of restaurants that have \"%s\" cuisine. \n", cuisineType.c_str());
 	for (int i = 0; i < queryResult.getSize(); ++i) {
 		Table smallQuery = db.query(attributes, "Restaurants", "placeID = \"" + attr_lists[0].getAt(i) + "\"");

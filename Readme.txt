@@ -7,17 +7,14 @@
 	ENTER 5 to print ratings for a specific customer,
 	ENTER 6 to print a breakdown of cuisine types offered by restaurants,
 	ENTER 7 to look up restaurants by cuisine type.
-	
-	entering -1 and -2 was there for printing a list of tables, or printing a record in a table, respectively both used in debugging.
+	ENTER 8 to print a breakdown of payment types accepted
+	ENTER 9 to print a list of tables
+	ENTER 10 to print a record in a table
 	
 	This menu will continue, until the number 0 is entered to exit.
 	
-	Many of the different paths in the menu will ask for other information to be entered before information will be returned.
+	Some reports/queries will ask for an argument before running. Type the argument and hit ENTER
 	
-	How we used the database functionality is that we pulled the information is large files to a Database of Table full of Records, and then we used many of the 
-	functions provided to pull information out of the Databases, and print them onto the screen. 
+	The database functionality was used to load large tables (from CSV input data) and query them to generate various reports. The query function was the most widely used database feature because it allowed us to extract the particular information. Our database application never made use of the delete function. Once our tables were constructed, there was no need to delete any items from them and therefore the delete function was unnecessary for us.
 	
-	Our main use of the Database function is using the query function to look into different tables for specific attributes, and used them for different uses. 
-	
-	The only function we did not fully get into our application Combine information from more than one table, we did use within the printRestaurantRatings function
-	a pull place ID from the table and then used that information to pull from another table.
+	Some parts of our database application make use of more than one table. Menu option 3 allows the user to enter the name of a restaurant which must be converted to a 'placeID' through the 'Restaurants' table and then queried against the 'Ratings' table for the appropriate information. We also made extensive use of libraries 'AttributeList' class which essentailly represented a column within a table. This class allowed for simpler loop constructs.
