@@ -37,19 +37,6 @@ int main() {
 	for(;;) {
 		int choice = Application::getMenuSelection();
 		switch(choice) {
-		case -1:
-			{
-				Application::printTables(*database);
-				break;
-			}
-		case -2:
-			{
-				printf("Enter the table name: ");
-				string tableName;
-				cin >> tableName;
-				Application::printRecords(*database, tableName);
-				break;
-			}
 		case Application::MENU::EXIT:
 			return 0; // Exit program with success code
 		case Application::MENU::CUSTOMER_INFO:
@@ -73,6 +60,14 @@ int main() {
 		case Application::MENU::RESTAURANT_BY_CUISINE:
 			Application::printRestaurantsByCuisine(*database);
 			break;
+		case Application::MENU::PAYMENT_TYPES:
+			Application::printPaymentBreakdown(*database);
+		case Application::MENU::PRINT_TABLES:
+			Application::printTables(*database);
+			break;
+		case Application::MENU::PRINT_RECORDS:
+			Application::printRecords(*database);
+			break;
 		default:
 			cout << "Invalid choice \n\n" << endl;
 		}
@@ -85,16 +80,17 @@ int Application::getMenuSelection() {
 	cout << "---------" << endl;
 	cout << "MAIN MENU" << endl;
 	cout << "---------" << endl;
-	cout << "\t" << "-1 Print the list of tables (DEBUG)" << endl; //Currently for debug purposes
-	cout << "\t" << "-2 Print the records in a table (DEBUG)" << endl; //Currently for debug purposes
-	cout << "\t" << "0) Exit" << endl;
-	cout << "\t" << "1) Print information about a specific customer" << endl;
-	cout << "\t" << "2) Print information about a specific restaurant" << endl;
-	cout << "\t" << "3) Print ratings for a specific restaurant" << endl;
-	cout << "\t" << "4) Print out a breakdown of a certain customer attribute" << endl;
-	cout << "\t" << "5) Print ratings for a specific customer" << endl;
-	cout << "\t" << "6) Print a breakdown of cuisine types offered by retaurants" << endl;
-	cout << "\t" << "7) Look up restaurants by cuisine type" << endl;
+	cout << "\t" << "0)  Exit" << endl;
+	cout << "\t" << "1)  Print information about a specific customer" << endl;
+	cout << "\t" << "2)  Print information about a specific restaurant" << endl;
+	cout << "\t" << "3)  Print ratings for a specific restaurant" << endl;
+	cout << "\t" << "4)  Print out a breakdown of a certain customer attribute" << endl;
+	cout << "\t" << "5)  Print ratings for a specific customer" << endl;
+	cout << "\t" << "6)  Print a breakdown of cuisine types offered by retaurants" << endl;
+	cout << "\t" << "7)  Look up restaurants by cuisine type" << endl;
+	cout << "\t" << "8)  Print a breakdown of payment types accepted" << endl;
+	cout << "\t" << "9)  Print the list of tables" << endl;
+	cout << "\t" << "10) Print the records in a table (Warning! A lot of info!)" << endl;
 	cout << "Enter your selection (number): ";
 	cin >> input;
 	choice = atoi(input.c_str());
@@ -241,6 +237,7 @@ void Application::printCustomerRatings(Database &db) {
 		printf("Rating query failed. \"%s\" has no ratings!\n", customerName.c_str());
 		return;
 	}
+	printf("User %s has rated the following places:\n", customerName.c_str());
 	printf("%-15s %-15s %-15s %-15s\n", "placeID", "Rating", "Food Rating", "Service Rating");
 	double rating = 0, foodRating = 0, serviceRating = 0, count = 0;
 	//Start at 1 to skip the attribute type
@@ -327,8 +324,50 @@ void Application::printRestaurantsByCuisine(Database &db) {
 	}
 }
 
+void Application::printPaymentBreakdown(Database &db) {
+	vector<Table> tables = db.getTables();
+	vector<string> tableNames = db.listTables();
+	int i = 0;
+	while(tableNames[i].compare("Payments") != 0) {
+		i++;
+		if(i >= tableNames.size())
+			break;
+	}
+
+	vector<AttributeList> attributes = tables[i].getAttributes();
+	printf("Working.");
+	map<string, float> frequency;
+	int total = 0;
+	for(int j = 0; j < tables[i].getSize(); j++) {
+		string item = attributes[1].getAt(j);
+		frequency[item] = frequency[item] + 1;
+		if(j%50 == 0) {
+			printf(".");
+		}
+		if(j>0) {
+			if(attributes[0].getAt(j-1).compare(attributes[0].getAt(j)) != 0) {
+				total++;
+			}
+		}
+	}
+
+	printf("\n");
+
+	map<string, float>::iterator iter = frequency.begin();
+	printf("Here is a percentage breakdown of payment types:\n");
+	while(iter != frequency.end()) {
+		printf("%5.2f%% of restaurants accept \"%s\"\n", iter->second/total*100, iter->first.c_str());
+		iter++;
+	}
+	printf("\n");
+}
+
 // Used for debug purposes
-void Application::printRecords(Database &db, string tableName) {	
+void Application::printRecords(Database &db) {
+	printf("Enter the table name: ");
+	string tableName;
+	cin >> tableName;
+	cin.get();
 	vector<string> tableNames = db.listTables();
 	int index = -1;
 	for(unsigned int i = 0; i < tableNames.size(); i++) {
@@ -345,16 +384,20 @@ void Application::printRecords(Database &db, string tableName) {
 		Table table = db.getTables()[index];
 		vector<AttributeList> attr_lists = table.getAttributes();
 		for (int i = 0; i < table.getSize(); ++i) {
+			printf("Record number %i\n", i+1);
+			printf("----------------\n");
 			for (unsigned int j = 0; j < attr_lists.size(); ++j) {
-				printf("%s ", attr_lists[j].getAt(i).c_str());
+				printf("%-20s: %s \n", attr_lists[j].getName().c_str(), attr_lists[j].getAt(i).c_str());
 			}
-			printf("\n");
+			printf("Press enter to see the next record...\n");
+			cin.get();
 		}
 	}
 }
 
 // Used for debug purposes
 void Application::printTables(Database &db) {
+	cin.get();
 	vector<Table> tables = db.getTables();
 	vector<string> tableNames = db.listTables();
 	for(unsigned int i = 0; i < tables.size(); i++) {
@@ -366,6 +409,8 @@ void Application::printTables(Database &db) {
 			printf("Attribute %i is called %s with type %i \n", j, attributes[j].getName().c_str(), attributes[j].getType());
 		}
 		printf("\n");
+		printf("Press enter to see the next table...\n");
+		cin.get();
 	}
 }
 
